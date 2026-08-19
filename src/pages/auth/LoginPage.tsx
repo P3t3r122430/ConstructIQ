@@ -200,7 +200,7 @@ export const LoginPage: React.FC = () => {
           </div>
         </Link>
         <h2 className="mt-4 text-2xl sm:text-3xl font-black tracking-tight text-white">
-          Sign In to ApexBuild Portal
+          Sign In to Nbyte Portal
         </h2>
         <p className="mt-2 text-xs text-slate-400">
           Enter your institutional credentials to access your verified account.
@@ -335,9 +335,9 @@ export const LoginPage: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={
                     activeTab === 'admin' 
-                      ? 'admin@apexbuild.co.ke' 
+                      ? 'admin@voidconstruction.co.ke' 
                       : activeTab === 'manager' 
-                      ? 'manager@apexbuild.co.ke' 
+                      ? 'manager@voidconstruction.co.ke' 
                       : 'client@company.com'
                   }
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"

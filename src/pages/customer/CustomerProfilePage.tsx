@@ -172,7 +172,7 @@ export const CustomerProfilePage: React.FC = () => {
               <ShieldCheck className="w-4 h-4" /> Confidentiality & Privacy
             </h4>
             <p className="text-[11px] text-slate-400 leading-relaxed">
-              Your drawings, bills of quantities, and quotation submissions are encrypted and isolated via PostgreSQL Row Level Security (RLS). Only assigned ApexBuild estimators have review clearance.
+              Your drawings, bills of quantities, and quotation submissions are encrypted and isolated via PostgreSQL Row Level Security (RLS). Only assigned Nbyte estimators have review clearance.
             </p>
           </div>
         </div>

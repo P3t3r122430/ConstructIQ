@@ -507,7 +507,7 @@ export const RequestQuotePage: React.FC = () => {
                   Quote Request Successfully Logged!
                 </h3>
                 <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-                  Your project specifications have been submitted to ApexBuild's Estimations & Structural Engineering department. A registered Quantity Surveyor has been assigned to your file.
+                  Your project specifications have been submitted to Nbyte Architecture & Construction's Estimations & Structural Engineering department. A registered Quantity Surveyor has been assigned to your file.
                 </p>
               </div>
 

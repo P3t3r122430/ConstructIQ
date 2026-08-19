@@ -12,32 +12,32 @@ import {
 
 export const INITIAL_SITE_SETTINGS: SiteSettings = {
   id: 'settings-001',
-  company_name: 'ApexBuild Engineering & Construction',
-  tagline: 'Precision Civil Engineering & High-End Construction Across East Africa',
+  company_name: 'Nbyte Architecture & Construction',
+  tagline: 'Architectural Innovation & Precision Civil Engineering Across East Africa',
   logo_url: 'https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?w=160&auto=format&fit=crop&q=80',
   phone: '+254 (0) 20 780 4000',
   phone_secondary: '+254 700 889 900',
-  email: 'contracts@apexbuild.co.ke',
-  address: 'Apex Tower, 8th Floor, Chiromo Road, Westlands',
+  email: 'contracts@nbyte.co.ke',
+  address: 'Nbyte Headquarters, 8th Floor, Chiromo Road, Westlands',
   city: 'Nairobi',
   country: 'Kenya',
   whatsapp_number: '+254700889900',
   google_maps_embed_url: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.364604543162!2d36.804245!3d-1.267499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f173c3339171b%3A0xe54e601274577884!2sWestlands%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske',
   business_hours: 'Monday – Friday: 7:30 AM – 5:30 PM | Saturday: 8:00 AM – 1:00 PM',
-  about_summary: 'ApexBuild is a premier Tier-1 (NCA 1) civil engineering and general contracting firm headquartered in Nairobi, Kenya. With over 18 years of continuous operational excellence, we deliver landmark infrastructure, commercial high-rises, master-planned residential estates, and complex civil engineering projects across East and Central Africa.',
-  mission: 'To deliver superior infrastructure and architectural landmarks that drive economic progress, uphold unyielding structural integrity, and ensure zero-harm safety for every worker and community.',
-  vision: 'To be East Africa’s most trusted, technologically advanced, and environmentally sustainable engineering and construction powerhouse.',
+  about_summary: 'Nbyte Architecture & Construction is a premier Tier-1 (NCA 1) architectural design, civil engineering, and general contracting firm headquartered in Nairobi, Kenya. With over 18 years of continuous operational excellence, we deliver landmark infrastructure, commercial high-rises, master-planned residential estates, and complex civil engineering projects across East and Central Africa.',
+  mission: 'To deliver visionary architectural landmarks and durable civil infrastructure that elevate communities, uphold unyielding structural rigor, and guarantee zero-harm safety standards.',
+  vision: 'To be Africa’s most distinguished architectural design and sustainable construction powerhouse.',
   core_values: [
     'Zero-Harm Safety Standard',
-    'Uncompromising Engineering Rigor',
+    'Uncompromising Architectural & Engineering Rigor',
     'Total Budget & Schedule Transparency',
     'Sustainable & EDGE-Certified Building',
     'Community-First Impact'
   ],
-  social_facebook: 'https://facebook.com/apexbuildke',
-  social_linkedin: 'https://linkedin.com/company/apexbuild-kenya',
-  social_twitter: 'https://twitter.com/apexbuild_ke',
-  social_instagram: 'https://instagram.com/apexbuild_construction',
+  social_facebook: 'https://facebook.com/nbyteconstructionke',
+  social_linkedin: 'https://linkedin.com/company/nbyte-architecture-construction',
+  social_twitter: 'https://twitter.com/nbyte_construct',
+  social_instagram: 'https://instagram.com/nbyte_construction',
   currency: 'KES',
   updated_at: new Date().toISOString()
 };
@@ -48,7 +48,7 @@ export const INITIAL_SERVICES: Service[] = [
     title: 'Commercial & High-Rise Construction',
     slug: 'commercial-high-rise-construction',
     short_description: 'Turnkey development of Grade-A office towers, shopping malls, institutional complexes, and hospitality facilities.',
-    description: 'We offer full-lifecycle engineering, procurement, and construction (EPC) for modern commercial developments. From complex deep-basement excavation in dense urban centers to post-tensioned reinforced concrete superstructures and high-performance curtain-wall facades, ApexBuild ensures on-budget, on-time delivery with full NCA and international structural compliance.',
+    description: 'We offer full-lifecycle architectural design, procurement, and construction (EPC) for modern commercial developments. From complex deep-basement excavation in dense urban centers to post-tensioned reinforced concrete superstructures and high-performance curtain-wall facades, Nbyte ensures on-budget, on-time delivery with full NCA and international structural compliance.',
     image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80',
     icon: 'Building2',
     category: 'Commercial',
@@ -177,7 +177,7 @@ export const INITIAL_PROJECTS: Project[] = [
     title: 'Upper Hill Horizon Commercial Tower',
     slug: 'upper-hill-horizon-commercial-tower',
     short_description: '28-storey Grade-A commercial office tower with 4-level subterranean automated parking and EDGE Gold certification.',
-    description: 'A benchmark development in Nairobi’s financial district. The Upper Hill Horizon Tower features 35,000 m² of prime commercial space, a double-curved unitized curtain wall, high-speed destination-controlled elevators, and full rooftop solar energy generation. ApexBuild completed the project 6 weeks ahead of schedule with over 1.2 million safe work hours logged.',
+    description: 'A benchmark development in Nairobi’s financial district. The Upper Hill Horizon Tower features 35,000 m² of prime commercial space, a double-curved unitized curtain wall, high-speed destination-controlled elevators, and full rooftop solar energy generation. Nbyte completed the project 6 weeks ahead of schedule with over 1.2 million safe work hours logged.',
     location: 'Upper Hill, Nairobi, Kenya',
     client: 'Horizon Real Estate Holdings Ltd',
     project_type: 'Commercial',
@@ -296,7 +296,7 @@ export const INITIAL_PROJECTS: Project[] = [
     title: 'Kisumu–Kakamega Highway Dualing & Bridges',
     slug: 'kisumu-kakamega-highway-dualing-bridges',
     short_description: '14.5 km national highway expansion, 3 river bridge crossings, and grade-separated roundabout interchanges.',
-    description: 'A vital economic artery connecting Western Kenya to the Northern Corridor. ApexBuild handled the earthworks, drainage infrastructure, sub-base stabilization, asphalt concrete wearing course laying, and the engineering of three 45-meter prestressed concrete beam bridges designed to withstand 100-year flood levels.',
+    description: 'A vital economic artery connecting Western Kenya to the Northern Corridor. Nbyte handled the earthworks, drainage infrastructure, sub-base stabilization, asphalt concrete wearing course laying, and the engineering of three 45-meter prestressed concrete beam bridges designed to withstand 100-year flood levels.',
     location: 'Kisumu County, Kenya',
     client: 'Kenya National Highways Authority (KeNHA)',
     project_type: 'Civil Works',
@@ -372,7 +372,7 @@ export const INITIAL_TESTIMONIALS: Testimonial[] = [
     customer_name: 'Eng. Peter Kimani',
     company: 'Director of Infrastructure, Horizon Holdings Ltd',
     project_title: 'Upper Hill Horizon Commercial Tower',
-    content: 'ApexBuild demonstrated extraordinary technical skill on our 28-storey tower. Deep excavation in Westlands/Upper Hill can be fraught with geotechnical surprises, but their engineering team managed retaining walls and structural casting with surgical precision. They finished 6 weeks ahead of schedule.',
+    content: 'Nbyte Architecture & Construction demonstrated extraordinary technical skill on our 28-storey tower. Deep excavation in Westlands/Upper Hill can be fraught with geotechnical surprises, but their engineering team managed retaining walls and structural casting with surgical precision. They finished 6 weeks ahead of schedule.',
     rating: 5,
     image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
     featured: true,
@@ -385,7 +385,7 @@ export const INITIAL_TESTIMONIALS: Testimonial[] = [
     customer_name: 'Brenda Odhiambo',
     company: 'Managing Partner, Sanctuary Living PLC',
     project_title: 'Karen Sanctuary Estate',
-    content: 'Building 14 luxury bespoke homes requires an obsession with finishing quality. ApexBuild’s project managers were on site every morning, strictly enforcing safety and quality benchmarks. Their transparent weekly cost accounting gave our investors complete peace of mind.',
+    content: 'Building 14 luxury bespoke homes requires an obsession with finishing quality. Nbyte’s project managers were on site every morning, strictly enforcing safety and quality benchmarks. Their transparent weekly cost accounting gave our investors complete peace of mind.',
     rating: 5,
     image_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
     featured: true,
@@ -415,7 +415,7 @@ export const INITIAL_TEAM_MEMBERS: TeamMember[] = [
     position: 'Managing Director & Lead Structural Engineer',
     biography: 'Over 22 years of structural engineering mastery across Eastern and Southern Africa. Fellow of the Institution of Engineers of Kenya (IEK) and registered with Engineers Board of Kenya (EBK). Lead consultant on over $200M worth of high-rise and civil projects.',
     image_url: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80',
-    email: 'd.mwangi@apexbuild.co.ke',
+    email: 'd.mwangi@nbyte.co.ke',
     phone: '+254 722 100 200',
     linkedin_url: 'https://linkedin.com',
     display_order: 1,
@@ -429,7 +429,7 @@ export const INITIAL_TEAM_MEMBERS: TeamMember[] = [
     position: 'Chief Operations Officer & Principal Architect',
     biography: 'Graduate of the University of Nairobi with master’s in Sustainable Architecture (University of Cape Town). Oversees turnkey project delivery, BIM coordination, and contract administration across all regional active construction sites.',
     image_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80',
-    email: 'g.wanjiru@apexbuild.co.ke',
+    email: 'g.wanjiru@nbyte.co.ke',
     phone: '+254 722 300 400',
     linkedin_url: 'https://linkedin.com',
     display_order: 2,
@@ -443,7 +443,7 @@ export const INITIAL_TEAM_MEMBERS: TeamMember[] = [
     position: 'Head of Civil Infrastructure & Heavy Plant',
     biography: '16 years directing major highway concessions, bridge construction, and bulk earthworks. Specializes in soil-structure interaction, geotechnical stabilization, and automated fleet telematics.',
     image_url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&auto=format&fit=crop&q=80',
-    email: 'b.ochieng@apexbuild.co.ke',
+    email: 'b.ochieng@nbyte.co.ke',
     phone: '+254 722 500 600',
     linkedin_url: 'https://linkedin.com',
     display_order: 3,
@@ -453,11 +453,11 @@ export const INITIAL_TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: 'team-004',
-    name: 'Fatuma Hassan, MSc. HSE, NEBOSH',
-    position: 'Director of Health, Safety & Quality Assurance',
-    biography: 'Certified NEBOSH International Diploma holder leading our Zero-Harm safety program. Achieved over 3.8 million consecutive safe working hours without a lost-time injury across our active urban projects.',
-    image_url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=80',
-    email: 'f.hassan@apexbuild.co.ke',
+    name: 'QS Farooq Hassan, CIQSK, BQS',
+    position: 'Chief Quantity Surveyor & Commercial Director',
+    biography: 'Specialist in FIDIC contract administration, value engineering, BOQ audits, and interim progress valuations for multi-billion shilling capital developments.',
+    image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80',
+    email: 'f.hassan@nbyte.co.ke',
     phone: '+254 722 700 800',
     linkedin_url: 'https://linkedin.com',
     display_order: 4,
@@ -480,7 +480,7 @@ As Nairobi's skyline climbs rapidly with 25 to 40-storey commercial and resident
 ### 1. Soil-Structure Interaction in Upper Hill and Westlands
 Nairobi’s geology varies significantly within just a few kilometers. While Upper Hill is anchored by stable phonolite bedrock, areas around Westlands and Parklands often present thick volcanic clays (black cotton soils) overlying weathered tuff. 
 
-At ApexBuild, our structural protocol begins with:
+At Nbyte Architecture & Construction, our structural protocol begins with:
 * Multi-depth continuous core rotary drilling
 * Downhole seismic testing for shear wave velocity ($V_s30$)
 * Contiguous secant piling with pre-stressed ground anchors
@@ -513,7 +513,7 @@ Global capital allocators and international tenants (multinationals, diplomatic 
 2. **Water Efficiency (Minimum 20%):** Low-flow aerated plumbing fixtures, rainwater harvesting cisterns, and on-site greywater treatment plants for toilet flushing and landscape irrigation.
 3. **Embodied Carbon in Materials (Minimum 20%):** Sourcing localized stone, hollow clay blocks, and recycled structural steel.
 
-Developers partner with ApexBuild because our in-house BIM (Building Information Modeling) specialists simulate solar insolation and thermal envelope performance before the first cubic meter of concrete is poured.`,
+Developers partner with Nbyte Architecture & Construction because our in-house BIM (Building Information Modeling) specialists simulate solar insolation and thermal envelope performance before the first cubic meter of concrete is poured.`,
     cover_image_url: 'https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?w=1200&auto=format&fit=crop&q=80',
     author_name: 'Arch. Grace Wanjiru',
     category: 'Sustainability & Green Building',
@@ -538,7 +538,7 @@ Regulatory enforcement on construction sites across Kenyan urban centers has rea
 3. **National Construction Authority (NCA):** Project registration, verified contractor certification (Category NCA 1 for unlimited contract values), and NCA-accredited site supervisor badges.
 4. **Water Resources Authority (WRA):** Groundwater extraction permits for commercial boreholes and riparian boundary verifications.
 
-ApexBuild provides comprehensive statutory advisory to all our clients, managing the regulatory pipeline end-to-end to ensure zero site shutdowns.`,
+Nbyte Architecture & Construction provides comprehensive statutory advisory to all our clients, managing the regulatory pipeline end-to-end to ensure zero site shutdowns.`,
     cover_image_url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&auto=format&fit=crop&q=80',
     author_name: 'Eng. Brian Ochieng, PMP',
     category: 'Regulations & Compliance',
@@ -617,7 +617,7 @@ export const INITIAL_MESSAGES: ContactMessage[] = [
     email: 's.maina@investmentfund.ke',
     phone: '+254 722 888 999',
     subject: 'RFP for 200-Unit Residential Masterplan in Kiambu',
-    message: 'Greetings ApexBuild team. We represent an international institutional pension fund preparing an RFP for a 200-unit gated estate in Kiambu. We would like to invite your firm to prequalify as main contractor.',
+    message: 'Greetings Nbyte team. We represent an international institutional pension fund preparing an RFP for a 200-unit gated estate in Kiambu. We would like to invite your firm to prequalify as main contractor.',
     status: 'unread',
     created_at: new Date(Date.now() - 86400000 * 1).toISOString(),
     updated_at: new Date(Date.now() - 86400000 * 1).toISOString()
@@ -639,9 +639,9 @@ export const INITIAL_PROFILES: Profile[] = [
   {
     id: 'usr-admin-001',
     full_name: 'Eng. David Mwangi (Admin)',
-    email: 'admin@apexbuild.co.ke',
+    email: 'admin@nbyte.co.ke',
     phone: '+254 722 100 200',
-    company_name: 'ApexBuild Engineering',
+    company_name: 'Nbyte Architecture & Construction',
     avatar_url: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&auto=format&fit=crop&q=80',
     role: 'admin',
     active: true,
@@ -651,9 +651,9 @@ export const INITIAL_PROFILES: Profile[] = [
   {
     id: 'usr-manager-001',
     full_name: 'Arch. Grace Wanjiru (Manager)',
-    email: 'manager@apexbuild.co.ke',
+    email: 'manager@nbyte.co.ke',
     phone: '+254 722 300 400',
-    company_name: 'ApexBuild Operations',
+    company_name: 'Nbyte Operations',
     avatar_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
     role: 'manager',
     active: true,
@@ -663,7 +663,7 @@ export const INITIAL_PROFILES: Profile[] = [
   {
     id: 'usr-demo-001',
     full_name: 'Samuel Kiprop',
-    email: 'customer@apexbuild.co.ke',
+    email: 'customer@nbyte.co.ke',
     phone: '+254 712 345 678',
     company_name: 'Prime Commercial Properties',
     avatar_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',

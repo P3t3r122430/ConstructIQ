@@ -32,7 +32,7 @@ export const RegisterPage: React.FC = () => {
       }
 
       if (res.sessionEstablished) {
-        success('Account Created', 'Welcome to ApexBuild Client Portal.');
+        success('Account Created', 'Welcome to Nbyte Client Portal.');
         navigate('/account');
       } else {
         // Supabase created the user, but email confirmation is pending

@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 const SUPABASE_SQL_SCHEMA = `-- ============================================================================
--- APEXBUILD ENGINEERING & CONSTRUCTION - SUPABASE DATABASE MIGRATION
+-- NBYTE ARCHITECTURE & CONSTRUCTION - SUPABASE DATABASE MIGRATION
 -- Production Schema with Row Level Security (RLS), Indexes, Triggers & Storage
 -- ============================================================================
 
@@ -198,12 +198,12 @@ CREATE TABLE IF NOT EXISTS public.blog_posts (
 -- 10. SITE SETTINGS TABLE
 CREATE TABLE IF NOT EXISTS public.site_settings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    company_name TEXT DEFAULT 'ApexBuild Engineering & Construction' NOT NULL,
-    tagline TEXT DEFAULT 'Precision Civil Engineering & High-End Construction' NOT NULL,
+    company_name TEXT DEFAULT 'Nbyte Architecture & Construction' NOT NULL,
+    tagline TEXT DEFAULT 'Precision Civil Engineering & Architectural Mastery' NOT NULL,
     logo_url TEXT,
     phone TEXT DEFAULT '+254 (0) 20 780 4000',
-    email TEXT DEFAULT 'info@apexbuild.co.ke',
-    address TEXT DEFAULT 'Apex Tower, 8th Floor, Chiromo Road, Westlands',
+    email TEXT DEFAULT 'info@nbyte.co.ke',
+    address TEXT DEFAULT 'Nbyte Headquarters, 8th Floor, Chiromo Road, Westlands',
     city TEXT DEFAULT 'Nairobi',
     country TEXT DEFAULT 'Kenya',
     whatsapp_number TEXT DEFAULT '+254700123456',
@@ -223,13 +223,13 @@ export const AdminSettingsPage: React.FC = () => {
   const [copiedSql, setCopiedSql] = useState<boolean>(false);
 
   const [formSettings, setFormSettings] = useState<Record<string, string>>({
-    company_name: 'ApexBuild Engineering & Construction Ltd',
+    company_name: 'Nbyte Architecture & Construction',
     slogan: 'Precision Civil Engineering & Landmark High-Rise Infrastructure',
     phone: '+254 20 790 0000',
     whatsapp: '+254 711 000 000',
-    email: 'info@apexbuild.co.ke',
-    tenders_email: 'tenders@apexbuild.co.ke',
-    address: 'Apex Tower, 14th Floor, Chiromo Road, Westlands, Nairobi, Kenya',
+    email: 'info@nbyte.co.ke',
+    tenders_email: 'tenders@nbyte.co.ke',
+    address: 'Nbyte Headquarters, 14th Floor, Chiromo Road, Westlands, Nairobi, Kenya',
     working_hours: 'Mon - Fri: 7:30 AM - 5:30 PM | Sat: 8:00 AM - 1:00 PM',
     registration_no: 'NCA Category 1 (Building & Civil Works) | Reg #NCA-89241'
   });

@@ -114,7 +114,7 @@ export const ResetPasswordPage: React.FC = () => {
           Create New Password
         </h2>
         <p className="mt-2 text-xs text-slate-400">
-          Enter a strong, secure password for your ApexBuild engineering account.
+          Enter a strong, secure password for your VOID engineering account.
         </p>
       </div>
 

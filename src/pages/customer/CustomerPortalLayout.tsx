@@ -51,7 +51,7 @@ export const CustomerPortalLayout: React.FC = () => {
                 <HardHat className="w-5 h-5" />
               </div>
               <span className="font-black text-white text-base tracking-tight hidden md:inline">
-                APEX<span className="text-amber-500">BUILD</span> CLIENT PORTAL
+                Nbyte<span className="text-amber-500">.</span> CLIENT PORTAL
               </span>
             </Link>
 

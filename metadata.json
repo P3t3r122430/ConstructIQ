@@ -1,7 +1,6 @@
 {
-  "name": "ApexBuild Engineering & Construction",
-  "description": "Production-grade construction company platform with dynamic projects portfolio, services catalog, quote engine, customer portal, and complete Supabase-backed admin management system.",
+  "name": "Nbyte Architecture & Construction",
+  "description": "Enterprise architectural design and Tier-1 civil construction platform featuring dynamic project portfolio, engineering services catalog, digital quotation engine, customer portal, and complete Supabase-backed management system.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
-

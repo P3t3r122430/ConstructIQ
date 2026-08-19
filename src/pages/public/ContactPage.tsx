@@ -74,21 +74,21 @@ export const ContactPage: React.FC = () => {
   const offices = [
     {
       city: 'Nairobi Headquarters (Main Operations)',
-      address: 'Apex Tower, 8th Floor, Chiromo Road, Westlands, Nairobi',
+      address: 'Nbyte Headquarters, 8th Floor, Chiromo Road, Westlands, Nairobi',
       phone: '+254 (0) 20 780 4000',
-      email: 'hq@apexbuild.co.ke'
+      email: 'hq@nbyte.co.ke'
     },
     {
       city: 'Mombasa Coastal Logistics & Batching Yard',
       address: 'Mbaraki Wharf Industrial Zone, Port Reitz, Mombasa',
       phone: '+254 (0) 41 222 8900',
-      email: 'coast@apexbuild.co.ke'
+      email: 'coast@nbyte.co.ke'
     },
     {
       city: 'Western Region Equipment Depot',
       address: 'Obote Road Light Industrial Area, Kisumu',
       phone: '+254 (0) 57 202 3400',
-      email: 'western@apexbuild.co.ke'
+      email: 'western@nbyte.co.ke'
     }
   ];
 
@@ -101,7 +101,7 @@ export const ContactPage: React.FC = () => {
             <Mail className="w-3.5 h-3.5" /> Corporate Inquiries & Tenders
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">
-            Get in Touch with ApexBuild
+            Get in Touch with Nbyte
           </h1>
           <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
             Contact our engineering headquarters in Nairobi, arrange a site visit, or discuss large-scale civil tenders.
@@ -126,7 +126,7 @@ export const ContactPage: React.FC = () => {
                     <div>
                       <p className="font-bold text-white text-sm">Physical Address</p>
                       <p className="text-slate-300 leading-relaxed mt-0.5">
-                        {settings?.address || 'Apex Tower, 8th Floor, Chiromo Road, Westlands, Nairobi, Kenya'}
+                        {settings?.address || 'Axon Tower, 8th Floor, Chiromo Road, Westlands, Nairobi, Kenya'}
                       </p>
                     </div>
                   </div>
@@ -147,9 +147,9 @@ export const ContactPage: React.FC = () => {
                     <div>
                       <p className="font-bold text-white text-sm">Official Email</p>
                       <p className="text-slate-300 font-mono mt-0.5">
-                        {settings?.email || 'contracts@apexbuild.co.ke'}
+                        {settings?.email || 'contracts@nbyte.co.ke'}
                       </p>
-                      <p className="text-slate-500 text-[11px]">Tenders: tenders@apexbuild.co.ke</p>
+                      <p className="text-slate-500 text-[11px]">Tenders: tenders@nbyte.co.ke</p>
                     </div>
                   </div>
 
@@ -168,7 +168,7 @@ export const ContactPage: React.FC = () => {
                 {settings?.whatsapp_number && (
                   <div className="pt-4 border-t border-slate-800">
                     <a
-                      href={`https://wa.me/${settings.whatsapp_number.replace(/[^0-9]/g, '')}?text=Hello%20ApexBuild%2C%20I%20would%20like%20to%20inquire%20about%20a%20construction%20project.`}
+                      href={`https://wa.me/${settings.whatsapp_number.replace(/[^0-9]/g, '')}?text=Hello%20Nbyte%20Architecture%20%26%20Construction%2C%20I%20would%20like%20to%20inquire%20about%20a%20construction%20project.`}
                       target="_blank"
                       rel="noreferrer"
                       className="w-full flex items-center justify-center gap-2 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-colors shadow-md"
@@ -210,7 +210,7 @@ export const ContactPage: React.FC = () => {
                     </div>
                     <h4 className="text-xl font-bold text-white">Message Received</h4>
                     <p className="text-xs text-slate-300 max-w-md mx-auto">
-                      Thank you for contacting ApexBuild. Your message has been routed to our corporate relations desk.
+                      Thank you for contacting Nbyte. Your message has been routed to our corporate relations desk.
                     </p>
                     <button
                       type="button"

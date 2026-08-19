@@ -16,9 +16,9 @@ export const FaqPage: React.FC = () => {
 
   const faqs = [
     {
-      question: 'What does ApexBuild’s NCA 1 Tier-1 Registration mean for my project?',
+      question: 'What does Nbyte Architecture & Construction’s NCA 1 Tier-1 Registration mean for my project?',
       category: 'Accreditation & Safety',
-      answer: 'The National Construction Authority (NCA 1) category is the highest tier of contractor registration in Kenya and East Africa. It certifies that ApexBuild possesses unlimited financial, plant, equipment, and structural engineering capacity to execute projects of unlimited monetary value. It provides institutional lenders, pension funds, and private developers with legal certainty that our technical team and safety protocols meet stringent statutory benchmarks.'
+      answer: 'The National Construction Authority (NCA 1) category is the highest tier of contractor registration in Kenya and East Africa. It certifies that Nbyte Architecture & Construction possesses unlimited financial, plant, equipment, and structural engineering capacity to execute projects of unlimited monetary value. It provides institutional lenders, pension funds, and private developers with legal certainty that our technical team and safety protocols meet stringent statutory benchmarks.'
     },
     {
       question: 'How do you structure payment milestones and contractual valuations?',
@@ -33,17 +33,17 @@ export const FaqPage: React.FC = () => {
     {
       question: 'What structural warranties and defect liability periods do you provide?',
       category: 'Quality & Warranties',
-      answer: 'Upon practical completion, all ApexBuild projects enter a standard 6 to 12-month Defects Liability Period (DLP) during which any latent snags are remediated immediately. Furthermore, all primary reinforced concrete and structural steel frameworks carry our signature 10-Year Structural Integrity Warranty backed by comprehensive contractor all-risk (CAR) insurance.'
+      answer: 'Upon practical completion, all Nbyte Architecture & Construction projects enter a standard 6 to 12-month Defects Liability Period (DLP) during which any latent snags are remediated immediately. Furthermore, all primary reinforced concrete and structural steel frameworks carry our signature 10-Year Structural Integrity Warranty backed by comprehensive contractor all-risk (CAR) insurance.'
     },
     {
-      question: 'How does ApexBuild ensure Zero-Harm Safety on active construction sites?',
+      question: 'How does Nbyte Architecture & Construction ensure Zero-Harm Safety on active construction sites?',
       category: 'Accreditation & Safety',
       answer: 'We operate under a strict ISO 45001 (Occupational Health & Safety) framework. Every site has full-time registered safety officers, mandatory morning toolbox briefings, 100% PPE compliance, perimeter edge-protection scaffolding, and full stop-work authority for every operative.'
     },
     {
       question: 'Can you work on design-and-build (turnkey EPC) arrangements?',
       category: 'Delivery Models',
-      answer: 'Absolutely. We offer complete Engineering, Procurement, and Construction (EPC) turnkey delivery. In this model, ApexBuild assumes single-point responsibility for architectural design, structural engineering, MEP coordination, procurement, and physical execution, reducing schedule overlap and cost overrun risks.'
+      answer: 'Absolutely. We offer complete Engineering, Procurement, and Construction (EPC) turnkey delivery. In this model, Nbyte Architecture & Construction assumes single-point responsibility for architectural design, structural engineering, MEP coordination, procurement, and physical execution, reducing schedule overlap and cost overrun risks.'
     }
   ];
 

@@ -70,7 +70,7 @@ export const AdminLayout: React.FC = () => {
           </div>
           <div>
             <span className="font-bold text-white text-sm uppercase tracking-tight block">
-              APEX<span className={isExecutiveAdmin ? 'text-amber-500' : 'text-sky-400'}>BUILD</span>
+              Nbyte<span className={isExecutiveAdmin ? 'text-amber-500' : 'text-sky-400'}>.</span>
             </span>
             <span className={`text-[9px] uppercase font-bold tracking-wider block ${isExecutiveAdmin ? 'text-amber-400' : 'text-sky-400'}`}>
               {isExecutiveAdmin ? 'Executive Admin' : 'Site Manager'}
@@ -101,7 +101,7 @@ export const AdminLayout: React.FC = () => {
             </div>
             <div>
               <span className="text-base font-bold tracking-tight text-white flex items-center gap-1 uppercase">
-                APEX<span className={isExecutiveAdmin ? 'text-amber-500' : 'text-sky-400'}>BUILD</span>
+                Nbyte<span className={isExecutiveAdmin ? 'text-amber-500' : 'text-sky-400'}>.</span>
               </span>
               <span className={`block text-[9px] uppercase font-extrabold tracking-widest ${isExecutiveAdmin ? 'text-amber-400' : 'text-sky-400'}`}>
                 {isExecutiveAdmin ? 'Executive Admin' : 'Site Operations Manager'}

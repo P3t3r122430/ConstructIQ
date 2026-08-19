@@ -48,17 +48,17 @@ export const Footer: React.FC = () => {
                 <HardHat className="w-5 h-5 text-black stroke-[2.4]" />
               </div>
               <div>
-                <span className="text-xl font-bold tracking-tighter uppercase text-white flex items-center gap-1.5">
-                  APEX<span className="text-amber-500">BUILD</span>
+                <span className="text-xl font-bold tracking-tighter uppercase text-white flex items-center gap-1">
+                  Nbyte<span className="text-amber-500">.</span>
                 </span>
-                <span className="block text-[9px] uppercase font-bold tracking-widest text-gray-500">
-                  Engineering & Construction Systems
+                <span className="block text-[9px] uppercase font-bold tracking-widest text-gray-400">
+                  Architecture & Construction
                 </span>
               </div>
             </Link>
 
             <p className="text-xs text-gray-400 leading-relaxed max-w-md">
-              Tier-1 (NCA 1) certified civil engineering and general contracting firm delivering landmark commercial high-rises, heavy civil infrastructure, luxury residential estates, and industrial facilities across East Africa.
+              Tier-1 (NCA 1) certified architectural design, civil engineering, and general contracting firm delivering landmark commercial high-rises, heavy civil infrastructure, luxury residential estates, and industrial facilities across East Africa.
             </p>
 
             {/* Certifications badges */}
@@ -78,7 +78,7 @@ export const Footer: React.FC = () => {
             {settings?.whatsapp_number && (
               <div className="pt-1">
                 <a
-                  href={`https://wa.me/${settings.whatsapp_number.replace(/[^0-9]/g, '')}?text=Hello%20ApexBuild%2C%20I%20would%20like%20to%20inquire%20about%20a%20construction%20project.`}
+                  href={`https://wa.me/${settings.whatsapp_number.replace(/[^0-9]/g, '')}?text=Hello%20Nbyte%20Architecture%20%26%20Construction%2C%20I%20would%20like%20to%20inquire%20about%20a%20construction%20project.`}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-950/40 hover:bg-emerald-900/50 text-emerald-400 border border-emerald-800/50 rounded-sm text-xs font-bold uppercase tracking-wider transition-colors"
@@ -98,7 +98,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs">
               <li>
                 <Link to="/about" className="hover:text-white transition-colors">
-                  About ApexBuild
+                  About Nbyte
                 </Link>
               </li>
               <li>
@@ -164,7 +164,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                <span>{settings?.email || 'contracts@apexbuild.co.ke'}</span>
+                <span>{settings?.email || 'contracts@nbyte.co.ke'}</span>
               </li>
               <li className="flex items-start gap-2 text-gray-500">
                 <Clock className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
@@ -202,7 +202,7 @@ export const Footer: React.FC = () => {
 
       {/* Bottom Bar matching SaaS Split Footer */}
       <div className="border-t border-white/10 py-3.5 px-6 sm:px-8 bg-black/40 text-[10px] text-gray-500 uppercase tracking-[0.2em] font-semibold flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div>&copy; {new Date().getFullYear()} APEXBUILD ENGINEERING & CONSTRUCTION SYSTEMS</div>
+        <div>&copy; {new Date().getFullYear()} NBYTE ARCHITECTURE & CONSTRUCTION</div>
         <div className="flex items-center gap-6">
           <span>Secure Node: NBO-01</span>
           <span className="inline-flex items-center gap-1.5 text-green-500">

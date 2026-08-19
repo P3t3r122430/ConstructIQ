@@ -177,7 +177,7 @@ export const BlogDetailPage: React.FC = () => {
               <p className="text-base font-bold text-white">{post.author_name}</p>
               <p className="text-xs text-amber-400 font-medium mb-1">{post.author_role || 'Senior Engineering Specialist'}</p>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Contributing Senior Specialist at ApexBuild Engineering & Construction Ltd.
+                Contributing Senior Specialist at VOID Architecture & Construction.
               </p>
             </div>
           </div>

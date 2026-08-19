@@ -92,7 +92,7 @@ export const CustomerMessagesPage: React.FC = () => {
                 <div className="bg-amber-950/20 border border-amber-500/20 p-4 rounded-xl space-y-1">
                   <div className="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>ApexBuild Engineering Desk Response:</span>
+                    <span>Nbyte Engineering Desk Response:</span>
                   </div>
                   <p className="text-xs text-slate-200 leading-relaxed pl-5">
                     {msg.admin_reply}

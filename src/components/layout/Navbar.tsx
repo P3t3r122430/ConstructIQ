@@ -74,7 +74,7 @@ export const Navbar: React.FC = () => {
             </span>
             <span className="inline-flex items-center gap-1.5 text-gray-300">
               <Mail className="w-3.5 h-3.5 text-amber-500" />
-              {settings?.email || 'contracts@apexbuild.co.ke'}
+              {settings?.email || 'contracts@nbyte.co.ke'}
             </span>
             <span className="inline-flex items-center gap-1.5 text-gray-500">
               <Clock className="w-3.5 h-3.5 text-amber-500" />
@@ -100,8 +100,11 @@ export const Navbar: React.FC = () => {
               <HardHat className="w-5 h-5 text-black stroke-[2.4]" />
             </div>
             <div>
-              <span className="text-lg font-bold tracking-tighter uppercase text-white flex items-center gap-1.5">
-                APEX<span className="text-amber-500">BUILD</span>
+              <span className="text-lg font-bold tracking-tighter uppercase text-white flex items-center gap-1">
+                Nbyte<span className="text-amber-500">.</span>
+              </span>
+              <span className="block text-[8px] uppercase tracking-widest font-bold text-gray-400 -mt-1">
+                Architecture & Construction
               </span>
             </div>
           </Link>

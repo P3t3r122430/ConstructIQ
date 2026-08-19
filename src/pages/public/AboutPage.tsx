@@ -92,13 +92,13 @@ export const AboutPage: React.FC = () => {
               </h2>
               <div className="space-y-4 text-gray-300 text-xs leading-relaxed">
                 <p>
-                  Founded in Nairobi in 2008 by a consortium of registered structural engineers and project managers, ApexBuild has grown from a specialized civil earthworks contractor into one of East Africa’s premier Tier-1 (NCA 1) registered general engineering and construction companies.
+                  Founded in Nairobi in 2008 by a consortium of registered structural engineers and architects, Nbyte Architecture & Construction has grown from a specialized civil earthworks contractor into one of East Africa’s premier Tier-1 (NCA 1) registered general engineering and construction companies.
                 </p>
                 <p>
                   Today, we maintain an active in-house fleet of tower cranes, batching plants, heavy excavators, laser-guided paving machines, and specialized piling rigs. Our multidisciplinary engineering team coordinates complex capital expenditure projects from deep-basement excavation in Upper Hill to high-altitude highway concessions and pharmaceutical-grade logistics centers.
                 </p>
                 <p>
-                  With over 1.2 billion KES in active project delivery and more than 3.8 million consecutive safe working hours logged without a lost-time incident, ApexBuild represents the gold standard in modern African engineering.
+                  With over 1.2 billion KES in active project delivery and more than 3.8 million consecutive safe working hours logged without a lost-time incident, Nbyte Architecture & Construction represents the gold standard in modern African engineering.
                 </p>
               </div>
 
@@ -119,7 +119,7 @@ export const AboutPage: React.FC = () => {
               <div className="relative rounded-sm overflow-hidden shadow-2xl border border-white/10">
                 <img
                   src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1000&auto=format&fit=crop&q=80"
-                  alt="ApexBuild Site Engineers on Site"
+                  alt="Nbyte Site Engineers on Site"
                   className="w-full h-full object-cover filter brightness-90"
                 />
               </div>
