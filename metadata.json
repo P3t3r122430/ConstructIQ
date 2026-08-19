@@ -1,0 +1,7 @@
+{
+  "name": "ApexBuild Engineering & Construction",
+  "description": "Production-grade construction company platform with dynamic projects portfolio, services catalog, quote engine, customer portal, and complete Supabase-backed admin management system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
