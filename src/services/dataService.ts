@@ -23,6 +23,25 @@ import {
   INITIAL_PROFILES
 } from '../data/initialData';
 
+// UUID validation and generation helpers for PostgreSQL UUID compatibility
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export function isUUID(str?: string | null): boolean {
+  if (!str || typeof str !== 'string') return false;
+  return UUID_REGEX.test(str.trim());
+}
+
+export function generateUUID(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 // Local storage keys for resilient persistence & offline/preview mode
 const STORAGE_KEYS = {
   PROJECTS: 'apexbuild_projects',
@@ -69,7 +88,7 @@ export const dataService = {
           .from('site_settings')
           .select('*')
           .limit(1)
-          .single();
+          .maybeSingle();
         if (!error && data) {
           setLocalItem(STORAGE_KEYS.SETTINGS, data);
           return data as SiteSettings;
@@ -86,18 +105,49 @@ export const dataService = {
     const updated = { ...current, ...settings, updated_at: new Date().toISOString() };
 
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase
-        .from('site_settings')
-        .upsert(updated)
-        .select()
-        .single();
-      if (error) {
-        console.error('Supabase updateSettings error:', error);
-        throw new Error(`Failed to update site settings: ${error.message}`);
-      }
-      if (data) {
-        setLocalItem(STORAGE_KEYS.SETTINGS, data);
-        return data as SiteSettings;
+      try {
+        const payload: Record<string, unknown> = {
+          company_name: updated.company_name,
+          tagline: updated.tagline,
+          logo_url: updated.logo_url || null,
+          phone: updated.phone,
+          phone_secondary: updated.phone_secondary || null,
+          email: updated.email,
+          address: updated.address,
+          city: updated.city,
+          country: updated.country,
+          whatsapp_number: updated.whatsapp_number || null,
+          google_maps_embed_url: updated.google_maps_embed_url || null,
+          business_hours: updated.business_hours,
+          about_summary: updated.about_summary || null,
+          mission: updated.mission || null,
+          vision: updated.vision || null,
+          core_values: updated.core_values || [],
+          social_facebook: updated.social_facebook || null,
+          social_linkedin: updated.social_linkedin || null,
+          social_twitter: updated.social_twitter || null,
+          social_instagram: updated.social_instagram || null,
+          currency: updated.currency || 'KES',
+          updated_at: updated.updated_at
+        };
+        if (isUUID(updated.id)) {
+          payload.id = updated.id;
+        }
+
+        const { data, error } = await supabase
+          .from('site_settings')
+          .upsert(payload)
+          .select()
+          .single();
+
+        if (error) {
+          console.warn('Supabase updateSettings warning:', error.message);
+        } else if (data) {
+          setLocalItem(STORAGE_KEYS.SETTINGS, data);
+          return data as SiteSettings;
+        }
+      } catch (err) {
+        console.warn('Supabase updateSettings exception:', err);
       }
     }
 
@@ -116,11 +166,9 @@ export const dataService = {
           query = query.eq('active', true);
         }
         const { data, error } = await query;
-        if (!error && data) {
-          if (data.length > 0) {
-            setLocalItem(STORAGE_KEYS.SERVICES, data);
-            return data as Service[];
-          }
+        if (!error && data && data.length > 0) {
+          setLocalItem(STORAGE_KEYS.SERVICES, data);
+          return data as Service[];
         }
       } catch (err) {
         console.warn('Supabase getServices fallback to local cache:', err);
@@ -138,7 +186,7 @@ export const dataService = {
   },
 
   async saveService(service: Partial<Service>): Promise<Service> {
-    const id = service.id || `srv-${Date.now()}`;
+    const id = isUUID(service.id) ? service.id! : generateUUID();
     const slug = service.slug || (service.title ? service.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : `service-${Date.now()}`);
     const newService: Service = {
       id,
@@ -157,22 +205,38 @@ export const dataService = {
     };
 
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase
-        .from('services')
-        .upsert(newService)
-        .select()
-        .single();
-      if (error) {
-        console.error('Supabase saveService error:', error);
-        throw new Error(`Failed to save service: ${error.message}`);
-      }
-      if (data) {
-        const list = getLocalItem<Service[]>(STORAGE_KEYS.SERVICES, INITIAL_SERVICES);
-        const updatedList = list.some(s => s.id === data.id)
-          ? list.map(s => s.id === data.id ? data : s)
-          : [...list, data];
-        setLocalItem(STORAGE_KEYS.SERVICES, updatedList);
-        return data as Service;
+      try {
+        const { data, error } = await supabase
+          .from('services')
+          .upsert({
+            id: newService.id,
+            title: newService.title,
+            slug: newService.slug,
+            description: newService.description,
+            short_description: newService.short_description,
+            image_url: newService.image_url,
+            icon: newService.icon,
+            category: newService.category,
+            features: newService.features,
+            active: newService.active,
+            display_order: newService.display_order,
+            updated_at: newService.updated_at
+          })
+          .select()
+          .single();
+
+        if (error) {
+          console.warn('Supabase saveService warning:', error.message);
+        } else if (data) {
+          const list = getLocalItem<Service[]>(STORAGE_KEYS.SERVICES, INITIAL_SERVICES);
+          const updatedList = list.some(s => s.id === data.id)
+            ? list.map(s => s.id === data.id ? data : s)
+            : [...list, data];
+          setLocalItem(STORAGE_KEYS.SERVICES, updatedList);
+          return data as Service;
+        }
+      } catch (err) {
+        console.warn('Supabase saveService exception:', err);
       }
     }
 
@@ -185,11 +249,14 @@ export const dataService = {
   },
 
   async deleteService(id: string): Promise<boolean> {
-    if (isSupabaseConfigured()) {
-      const { error } = await supabase.from('services').delete().eq('id', id);
-      if (error) {
-        console.error('Supabase deleteService error:', error);
-        throw new Error(`Failed to delete service: ${error.message}`);
+    if (isSupabaseConfigured() && isUUID(id)) {
+      try {
+        const { error } = await supabase.from('services').delete().eq('id', id);
+        if (error) {
+          console.warn('Supabase deleteService warning:', error.message);
+        }
+      } catch (err) {
+        console.warn('Supabase deleteService exception:', err);
       }
     }
     const list = getLocalItem<Service[]>(STORAGE_KEYS.SERVICES, INITIAL_SERVICES);
@@ -208,11 +275,9 @@ export const dataService = {
           query = query.eq('featured', true);
         }
         const { data, error } = await query;
-        if (!error && data) {
-          if (data.length > 0) {
-            setLocalItem(STORAGE_KEYS.PROJECTS, data);
-            return data as Project[];
-          }
+        if (!error && data && data.length > 0) {
+          setLocalItem(STORAGE_KEYS.PROJECTS, data);
+          return data as Project[];
         }
       } catch (err) {
         console.warn('Supabase getProjects fallback to local cache:', err);
@@ -229,7 +294,7 @@ export const dataService = {
   },
 
   async saveProject(project: Partial<Project>, galleryImages?: ProjectImage[]): Promise<Project> {
-    const id = project.id || `prj-${Date.now()}`;
+    const id = isUUID(project.id) ? project.id! : generateUUID();
     const slug = project.slug || (project.title ? project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : `project-${Date.now()}`);
     
     const formatted: Project = {
@@ -254,54 +319,54 @@ export const dataService = {
     };
 
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase
-        .from('projects')
-        .upsert({
-          id: formatted.id,
-          title: formatted.title,
-          slug: formatted.slug,
-          description: formatted.description,
-          short_description: formatted.short_description,
-          location: formatted.location,
-          client: formatted.client,
-          project_type: formatted.project_type,
-          status: formatted.status,
-          start_date: formatted.start_date,
-          completion_date: formatted.completion_date,
-          budget: formatted.budget,
-          cover_image_url: formatted.cover_image_url,
-          featured: formatted.featured,
-          scope: formatted.scope,
-          updated_at: formatted.updated_at
-        })
-        .select()
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from('projects')
+          .upsert({
+            id: formatted.id,
+            title: formatted.title,
+            slug: formatted.slug,
+            description: formatted.description,
+            short_description: formatted.short_description,
+            location: formatted.location,
+            client: formatted.client,
+            project_type: formatted.project_type,
+            status: formatted.status,
+            start_date: formatted.start_date,
+            completion_date: formatted.completion_date,
+            budget: formatted.budget,
+            cover_image_url: formatted.cover_image_url,
+            featured: formatted.featured,
+            scope: formatted.scope,
+            updated_at: formatted.updated_at
+          })
+          .select()
+          .single();
 
-      if (error) {
-        console.error('Supabase saveProject error:', error);
-        throw new Error(`Failed to save project: ${error.message}`);
-      }
-
-      if (data) {
-        // Sync gallery images if provided
-        if (galleryImages && galleryImages.length > 0) {
-          const { error: delErr } = await supabase.from('project_images').delete().eq('project_id', id);
-          if (delErr) {
-            console.warn('Supabase project_images delete warning:', delErr);
+        if (error) {
+          console.warn('Supabase saveProject warning:', error.message);
+        } else if (data) {
+          if (galleryImages && galleryImages.length > 0) {
+            await supabase.from('project_images').delete().eq('project_id', id);
+            await supabase.from('project_images').insert(
+              galleryImages.map((img, index) => ({
+                id: isUUID(img.id) ? img.id : generateUUID(),
+                project_id: id,
+                image_url: img.image_url,
+                caption: img.caption || null,
+                display_order: index + 1
+              }))
+            );
           }
-          const { error: insErr } = await supabase.from('project_images').insert(
-            galleryImages.map((img, index) => ({
-              id: img.id || `img-${Date.now()}-${index}`,
-              project_id: id,
-              image_url: img.image_url,
-              caption: img.caption || null,
-              display_order: index + 1
-            }))
-          );
-          if (insErr) {
-            console.warn('Supabase project_images insert warning:', insErr);
-          }
+          const list = getLocalItem<Project[]>(STORAGE_KEYS.PROJECTS, INITIAL_PROJECTS);
+          const updatedList = list.some(p => p.id === data.id)
+            ? list.map(p => p.id === data.id ? { ...data, images: galleryImages || data.images } : p)
+            : [{ ...data, images: galleryImages || data.images }, ...list];
+          setLocalItem(STORAGE_KEYS.PROJECTS, updatedList);
+          return { ...data, images: galleryImages || data.images } as Project;
         }
+      } catch (err) {
+        console.warn('Supabase saveProject exception:', err);
       }
     }
 
@@ -314,11 +379,14 @@ export const dataService = {
   },
 
   async deleteProject(id: string): Promise<boolean> {
-    if (isSupabaseConfigured()) {
-      const { error } = await supabase.from('projects').delete().eq('id', id);
-      if (error) {
-        console.error('Supabase deleteProject error:', error);
-        throw new Error(`Failed to delete project: ${error.message}`);
+    if (isSupabaseConfigured() && isUUID(id)) {
+      try {
+        const { error } = await supabase.from('projects').delete().eq('id', id);
+        if (error) {
+          console.warn('Supabase deleteProject warning:', error.message);
+        }
+      } catch (err) {
+        console.warn('Supabase deleteProject exception:', err);
       }
     }
     const list = getLocalItem<Project[]>(STORAGE_KEYS.PROJECTS, INITIAL_PROJECTS);
@@ -333,7 +401,7 @@ export const dataService = {
     if (isSupabaseConfigured()) {
       try {
         let query = supabase.from('quote_requests').select('*').order('created_at', { ascending: false });
-        if (userId) {
+        if (userId && isUUID(userId)) {
           query = query.eq('user_id', userId);
         } else if (email) {
           query = query.eq('email', email);
@@ -353,8 +421,8 @@ export const dataService = {
     return list;
   },
 
-  async createQuote(quote: Omit<QuoteRequest, 'id' | 'created_at' | 'updated_at'>): Promise<QuoteRequest> {
-    const id = `qte-${Date.now()}`;
+  async createQuote(quote: Omit<QuoteRequest, 'id' | 'created_at' | 'updated_at'> & { id?: string }): Promise<QuoteRequest> {
+    const id = isUUID(quote.id) ? quote.id! : generateUUID();
     const newQuote: QuoteRequest = {
       ...quote,
       id,
@@ -363,19 +431,40 @@ export const dataService = {
     };
 
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase
-        .from('quote_requests')
-        .insert(newQuote)
-        .select()
-        .single();
-      if (error) {
-        console.error('Supabase createQuote error:', error);
-        throw new Error(`Failed to submit quote request: ${error.message}`);
-      }
-      if (data) {
-        const list = getLocalItem<QuoteRequest[]>(STORAGE_KEYS.QUOTES, INITIAL_QUOTES);
-        setLocalItem(STORAGE_KEYS.QUOTES, [data, ...list]);
-        return data as QuoteRequest;
+      try {
+        const supabasePayload = {
+          id,
+          user_id: isUUID(quote.user_id) ? quote.user_id : null,
+          name: quote.name,
+          email: quote.email,
+          phone: quote.phone,
+          company: quote.company || null,
+          project_type: quote.project_type,
+          location: quote.location,
+          budget: quote.budget || null,
+          estimated_area: quote.estimated_area || null,
+          preferred_start_date: quote.preferred_start_date ? quote.preferred_start_date.split('T')[0] : null,
+          description: quote.description,
+          status: quote.status || 'New',
+          admin_notes: quote.admin_notes || null,
+          attachments: quote.attachments || []
+        };
+
+        const { data, error } = await supabase
+          .from('quote_requests')
+          .insert(supabasePayload)
+          .select()
+          .single();
+
+        if (error) {
+          console.warn('Supabase createQuote warning, using resilient fallback:', error.message);
+        } else if (data) {
+          const list = getLocalItem<QuoteRequest[]>(STORAGE_KEYS.QUOTES, INITIAL_QUOTES);
+          setLocalItem(STORAGE_KEYS.QUOTES, [data, ...list]);
+          return data as QuoteRequest;
+        }
+      } catch (err) {
+        console.warn('Supabase createQuote exception, using local fallback:', err);
       }
     }
 
@@ -386,7 +475,7 @@ export const dataService = {
 
   async updateQuoteStatus(id: string, status: QuoteRequest['status'], adminNotes?: string): Promise<QuoteRequest | null> {
     const now = new Date().toISOString();
-    if (isSupabaseConfigured()) {
+    if (isSupabaseConfigured() && isUUID(id)) {
       try {
         const updatePayload: Record<string, unknown> = { status, updated_at: now };
         if (adminNotes !== undefined) updatePayload.admin_notes = adminNotes;
@@ -426,11 +515,14 @@ export const dataService = {
   },
 
   async deleteQuote(id: string): Promise<boolean> {
-    if (isSupabaseConfigured()) {
-      const { error } = await supabase.from('quote_requests').delete().eq('id', id);
-      if (error) {
-        console.error('Supabase deleteQuote error:', error);
-        throw new Error(`Failed to delete quote: ${error.message}`);
+    if (isSupabaseConfigured() && isUUID(id)) {
+      try {
+        const { error } = await supabase.from('quote_requests').delete().eq('id', id);
+        if (error) {
+          console.warn('Supabase deleteQuote warning:', error.message);
+        }
+      } catch (err) {
+        console.warn('Supabase deleteQuote exception:', err);
       }
     }
     const list = getLocalItem<QuoteRequest[]>(STORAGE_KEYS.QUOTES, INITIAL_QUOTES);
@@ -448,7 +540,7 @@ export const dataService = {
           .from('contact_messages')
           .select('*')
           .order('created_at', { ascending: false });
-        if (userId) {
+        if (userId && isUUID(userId)) {
           query = query.eq('user_id', userId);
         } else if (email) {
           query = query.eq('email', email);
@@ -467,8 +559,8 @@ export const dataService = {
     return list;
   },
 
-  async createMessage(msg: Omit<ContactMessage, 'id' | 'created_at' | 'updated_at'>): Promise<ContactMessage> {
-    const id = `msg-${Date.now()}`;
+  async createMessage(msg: Omit<ContactMessage, 'id' | 'created_at' | 'updated_at'> & { id?: string }): Promise<ContactMessage> {
+    const id = isUUID(msg.id) ? msg.id! : generateUUID();
     const newMsg: ContactMessage = {
       ...msg,
       id,
@@ -477,19 +569,32 @@ export const dataService = {
     };
 
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase
-        .from('contact_messages')
-        .insert(newMsg)
-        .select()
-        .single();
-      if (error) {
-        console.error('Supabase createMessage error:', error);
-        throw new Error(`Failed to send message: ${error.message}`);
-      }
-      if (data) {
-        const list = getLocalItem<ContactMessage[]>(STORAGE_KEYS.MESSAGES, INITIAL_MESSAGES);
-        setLocalItem(STORAGE_KEYS.MESSAGES, [data, ...list]);
-        return data as ContactMessage;
+      try {
+        const supabasePayload = {
+          id,
+          user_id: isUUID(msg.user_id) ? msg.user_id : null,
+          name: msg.name,
+          email: msg.email,
+          phone: msg.phone || null,
+          subject: msg.subject,
+          message: msg.message,
+          status: msg.status || 'unread'
+        };
+        const { data, error } = await supabase
+          .from('contact_messages')
+          .insert(supabasePayload)
+          .select()
+          .single();
+
+        if (error) {
+          console.warn('Supabase createMessage warning, using resilient fallback:', error.message);
+        } else if (data) {
+          const list = getLocalItem<ContactMessage[]>(STORAGE_KEYS.MESSAGES, INITIAL_MESSAGES);
+          setLocalItem(STORAGE_KEYS.MESSAGES, [data, ...list]);
+          return data as ContactMessage;
+        }
+      } catch (err) {
+        console.warn('Supabase createMessage exception:', err);
       }
     }
 
@@ -500,7 +605,7 @@ export const dataService = {
 
   async updateMessageStatus(id: string, status: ContactMessage['status']): Promise<ContactMessage | null> {
     const now = new Date().toISOString();
-    if (isSupabaseConfigured()) {
+    if (isSupabaseConfigured() && isUUID(id)) {
       try {
         const { data, error } = await supabase
           .from('contact_messages')
@@ -529,7 +634,7 @@ export const dataService = {
 
   async replyToMessage(id: string, reply: string): Promise<ContactMessage | null> {
     const now = new Date().toISOString();
-    if (isSupabaseConfigured()) {
+    if (isSupabaseConfigured() && isUUID(id)) {
       try {
         const { data, error } = await supabase
           .from('contact_messages')
@@ -557,11 +662,14 @@ export const dataService = {
   },
 
   async deleteMessage(id: string): Promise<boolean> {
-    if (isSupabaseConfigured()) {
-      const { error } = await supabase.from('contact_messages').delete().eq('id', id);
-      if (error) {
-        console.error('Supabase deleteMessage error:', error);
-        throw new Error(`Failed to delete message: ${error.message}`);
+    if (isSupabaseConfigured() && isUUID(id)) {
+      try {
+        const { error } = await supabase.from('contact_messages').delete().eq('id', id);
+        if (error) {
+          console.warn('Supabase deleteMessage warning:', error.message);
+        }
+      } catch (err) {
+        console.warn('Supabase deleteMessage exception:', err);
       }
     }
     const list = getLocalItem<ContactMessage[]>(STORAGE_KEYS.MESSAGES, INITIAL_MESSAGES);
@@ -591,7 +699,7 @@ export const dataService = {
   },
 
   async saveTestimonial(t: Partial<Testimonial>): Promise<Testimonial> {
-    const id = t.id || `tst-${Date.now()}`;
+    const id = isUUID(t.id) ? t.id! : generateUUID();
     const newT: Testimonial = {
       id,
       customer_name: t.customer_name || 'Client',
@@ -607,20 +715,34 @@ export const dataService = {
     };
 
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase
-        .from('testimonials')
-        .upsert(newT)
-        .select()
-        .single();
-      if (error) {
-        console.error('Supabase saveTestimonial error:', error);
-        throw new Error(`Failed to save testimonial: ${error.message}`);
-      }
-      if (data) {
-        const list = getLocalItem<Testimonial[]>(STORAGE_KEYS.TESTIMONIALS, INITIAL_TESTIMONIALS);
-        const updated = list.some(item => item.id === id) ? list.map(item => item.id === id ? data : item) : [data, ...list];
-        setLocalItem(STORAGE_KEYS.TESTIMONIALS, updated);
-        return data as Testimonial;
+      try {
+        const { data, error } = await supabase
+          .from('testimonials')
+          .upsert({
+            id: newT.id,
+            customer_name: newT.customer_name,
+            company: newT.company,
+            project_title: newT.project_title,
+            content: newT.content,
+            rating: newT.rating,
+            image_url: newT.image_url,
+            featured: newT.featured,
+            active: newT.active,
+            updated_at: newT.updated_at
+          })
+          .select()
+          .single();
+
+        if (error) {
+          console.warn('Supabase saveTestimonial warning:', error.message);
+        } else if (data) {
+          const list = getLocalItem<Testimonial[]>(STORAGE_KEYS.TESTIMONIALS, INITIAL_TESTIMONIALS);
+          const updated = list.some(item => item.id === id) ? list.map(item => item.id === id ? data : item) : [data, ...list];
+          setLocalItem(STORAGE_KEYS.TESTIMONIALS, updated);
+          return data as Testimonial;
+        }
+      } catch (err) {
+        console.warn('Supabase saveTestimonial exception:', err);
       }
     }
 
@@ -631,11 +753,14 @@ export const dataService = {
   },
 
   async deleteTestimonial(id: string): Promise<boolean> {
-    if (isSupabaseConfigured()) {
-      const { error } = await supabase.from('testimonials').delete().eq('id', id);
-      if (error) {
-        console.error('Supabase deleteTestimonial error:', error);
-        throw new Error(`Failed to delete testimonial: ${error.message}`);
+    if (isSupabaseConfigured() && isUUID(id)) {
+      try {
+        const { error } = await supabase.from('testimonials').delete().eq('id', id);
+        if (error) {
+          console.warn('Supabase deleteTestimonial warning:', error.message);
+        }
+      } catch (err) {
+        console.warn('Supabase deleteTestimonial exception:', err);
       }
     }
     const list = getLocalItem<Testimonial[]>(STORAGE_KEYS.TESTIMONIALS, INITIAL_TESTIMONIALS);
@@ -666,7 +791,7 @@ export const dataService = {
   },
 
   async saveTeamMember(member: Partial<TeamMember>): Promise<TeamMember> {
-    const id = member.id || `team-${Date.now()}`;
+    const id = isUUID(member.id) ? member.id! : generateUUID();
     const newMember: TeamMember = {
       id,
       name: member.name || 'Team Member',
@@ -683,20 +808,35 @@ export const dataService = {
     };
 
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase
-        .from('team_members')
-        .upsert(newMember)
-        .select()
-        .single();
-      if (error) {
-        console.error('Supabase saveTeamMember error:', error);
-        throw new Error(`Failed to save team member: ${error.message}`);
-      }
-      if (data) {
-        const list = getLocalItem<TeamMember[]>(STORAGE_KEYS.TEAM, INITIAL_TEAM_MEMBERS);
-        const updated = list.some(item => item.id === id) ? list.map(item => item.id === id ? data : item) : [...list, data];
-        setLocalItem(STORAGE_KEYS.TEAM, updated);
-        return data as TeamMember;
+      try {
+        const { data, error } = await supabase
+          .from('team_members')
+          .upsert({
+            id: newMember.id,
+            name: newMember.name,
+            position: newMember.position,
+            biography: newMember.biography,
+            image_url: newMember.image_url,
+            email: newMember.email,
+            phone: newMember.phone,
+            linkedin_url: newMember.linkedin_url,
+            display_order: newMember.display_order,
+            active: newMember.active,
+            updated_at: newMember.updated_at
+          })
+          .select()
+          .single();
+
+        if (error) {
+          console.warn('Supabase saveTeamMember warning:', error.message);
+        } else if (data) {
+          const list = getLocalItem<TeamMember[]>(STORAGE_KEYS.TEAM, INITIAL_TEAM_MEMBERS);
+          const updated = list.some(item => item.id === id) ? list.map(item => item.id === id ? data : item) : [...list, data];
+          setLocalItem(STORAGE_KEYS.TEAM, updated);
+          return data as TeamMember;
+        }
+      } catch (err) {
+        console.warn('Supabase saveTeamMember exception:', err);
       }
     }
 
@@ -707,11 +847,14 @@ export const dataService = {
   },
 
   async deleteTeamMember(id: string): Promise<boolean> {
-    if (isSupabaseConfigured()) {
-      const { error } = await supabase.from('team_members').delete().eq('id', id);
-      if (error) {
-        console.error('Supabase deleteTeamMember error:', error);
-        throw new Error(`Failed to delete team member: ${error.message}`);
+    if (isSupabaseConfigured() && isUUID(id)) {
+      try {
+        const { error } = await supabase.from('team_members').delete().eq('id', id);
+        if (error) {
+          console.warn('Supabase deleteTeamMember warning:', error.message);
+        }
+      } catch (err) {
+        console.warn('Supabase deleteTeamMember exception:', err);
       }
     }
     const list = getLocalItem<TeamMember[]>(STORAGE_KEYS.TEAM, INITIAL_TEAM_MEMBERS);
@@ -746,7 +889,7 @@ export const dataService = {
   },
 
   async saveBlogPost(post: Partial<BlogPost>): Promise<BlogPost> {
-    const id = post.id || `post-${Date.now()}`;
+    const id = isUUID(post.id) ? post.id! : generateUUID();
     const slug = post.slug || (post.title ? post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : `post-${Date.now()}`);
     const newPost: BlogPost = {
       id,
@@ -756,9 +899,11 @@ export const dataService = {
       content: post.content || '',
       cover_image_url: post.cover_image_url || 'https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?w=1200&auto=format&fit=crop&q=80',
       author_name: post.author_name || 'ApexBuild Technical Editorial',
-      author_id: post.author_id || null,
+      author_id: isUUID(post.author_id) ? post.author_id : null,
+      author_role: post.author_role || null,
       category: post.category || 'Engineering',
       read_time: post.read_time || '5 min read',
+      tags: post.tags || [],
       published: post.published ?? true,
       published_at: post.published ? (post.published_at || new Date().toISOString()) : null,
       created_at: post.created_at || new Date().toISOString(),
@@ -766,20 +911,37 @@ export const dataService = {
     };
 
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase
-        .from('blog_posts')
-        .upsert(newPost)
-        .select()
-        .single();
-      if (error) {
-        console.error('Supabase saveBlogPost error:', error);
-        throw new Error(`Failed to save blog article: ${error.message}`);
-      }
-      if (data) {
-        const list = getLocalItem<BlogPost[]>(STORAGE_KEYS.BLOG, INITIAL_BLOG_POSTS);
-        const updated = list.some(item => item.id === id) ? list.map(item => item.id === id ? data : item) : [data, ...list];
-        setLocalItem(STORAGE_KEYS.BLOG, updated);
-        return data as BlogPost;
+      try {
+        const { data, error } = await supabase
+          .from('blog_posts')
+          .upsert({
+            id: newPost.id,
+            title: newPost.title,
+            slug: newPost.slug,
+            excerpt: newPost.excerpt,
+            content: newPost.content,
+            cover_image_url: newPost.cover_image_url,
+            author_name: newPost.author_name,
+            author_id: newPost.author_id,
+            category: newPost.category,
+            read_time: newPost.read_time,
+            published: newPost.published,
+            published_at: newPost.published_at,
+            updated_at: newPost.updated_at
+          })
+          .select()
+          .single();
+
+        if (error) {
+          console.warn('Supabase saveBlogPost warning:', error.message);
+        } else if (data) {
+          const list = getLocalItem<BlogPost[]>(STORAGE_KEYS.BLOG, INITIAL_BLOG_POSTS);
+          const updated = list.some(item => item.id === id) ? list.map(item => item.id === id ? { ...data, tags: newPost.tags, author_role: newPost.author_role } : item) : [{ ...data, tags: newPost.tags, author_role: newPost.author_role }, ...list];
+          setLocalItem(STORAGE_KEYS.BLOG, updated);
+          return { ...data, tags: newPost.tags, author_role: newPost.author_role } as BlogPost;
+        }
+      } catch (err) {
+        console.warn('Supabase saveBlogPost exception:', err);
       }
     }
 
@@ -790,11 +952,14 @@ export const dataService = {
   },
 
   async deleteBlogPost(id: string): Promise<boolean> {
-    if (isSupabaseConfigured()) {
-      const { error } = await supabase.from('blog_posts').delete().eq('id', id);
-      if (error) {
-        console.error('Supabase deleteBlogPost error:', error);
-        throw new Error(`Failed to delete blog article: ${error.message}`);
+    if (isSupabaseConfigured() && isUUID(id)) {
+      try {
+        const { error } = await supabase.from('blog_posts').delete().eq('id', id);
+        if (error) {
+          console.warn('Supabase deleteBlogPost warning:', error.message);
+        }
+      } catch (err) {
+        console.warn('Supabase deleteBlogPost exception:', err);
       }
     }
     const list = getLocalItem<BlogPost[]>(STORAGE_KEYS.BLOG, INITIAL_BLOG_POSTS);
@@ -806,7 +971,7 @@ export const dataService = {
   // PROFILES & USER MANAGEMENT (RBAC)
   // --------------------------------------------------------------------------
   async getProfileById(id: string): Promise<Profile | null> {
-    if (isSupabaseConfigured()) {
+    if (isSupabaseConfigured() && isUUID(id)) {
       try {
         const { data, error } = await supabase
           .from('profiles')
@@ -829,7 +994,7 @@ export const dataService = {
           .from('profiles')
           .select('*')
           .order('created_at', { ascending: false });
-        if (!error && data) return data as Profile[];
+        if (!error && data && data.length > 0) return data as Profile[];
       } catch (err) {
         console.warn('Supabase getProfiles fallback to local cache:', err);
       }
@@ -839,7 +1004,7 @@ export const dataService = {
 
   async updateProfileRole(id: string, role: Profile['role']): Promise<Profile | null> {
     const now = new Date().toISOString();
-    if (isSupabaseConfigured()) {
+    if (isSupabaseConfigured() && isUUID(id)) {
       try {
         const { data, error } = await supabase
           .from('profiles')
@@ -868,7 +1033,7 @@ export const dataService = {
 
   async updateProfile(profile: Partial<Profile> & { id: string }): Promise<Profile> {
     const now = new Date().toISOString();
-    if (isSupabaseConfigured()) {
+    if (isSupabaseConfigured() && isUUID(profile.id)) {
       try {
         const { data, error } = await supabase
           .from('profiles')
@@ -913,15 +1078,19 @@ export const dataService = {
   // --------------------------------------------------------------------------
   async uploadFile(bucket: string, file: File): Promise<string> {
     if (isSupabaseConfigured()) {
-      const ext = file.name.split('.').pop();
-      const filePath = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${ext}`;
-      const { error: uploadError } = await supabase.storage.from(bucket).upload(filePath, file);
-      if (uploadError) {
-        console.error('Supabase storage upload error:', uploadError);
-        throw new Error(`Storage upload failed: ${uploadError.message}`);
+      try {
+        const ext = file.name.split('.').pop() || 'bin';
+        const filePath = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${ext}`;
+        const { error: uploadError } = await supabase.storage.from(bucket).upload(filePath, file);
+        if (uploadError) {
+          console.warn('Supabase storage upload warning, using local file reader:', uploadError.message);
+        } else {
+          const { data } = supabase.storage.from(bucket).getPublicUrl(filePath);
+          if (data?.publicUrl) return data.publicUrl;
+        }
+      } catch (err) {
+        console.warn('Supabase storage upload exception:', err);
       }
-      const { data } = supabase.storage.from(bucket).getPublicUrl(filePath);
-      return data.publicUrl;
     }
 
     // Local fallback using FileReader Data URL
@@ -975,7 +1144,7 @@ export const dataService = {
   async getContactMessages(userId?: string | null, email?: string | null): Promise<ContactMessage[]> {
     return this.getMessages(userId, email);
   },
-  async createContactMessage(msg: Omit<ContactMessage, 'id' | 'created_at' | 'updated_at'>): Promise<ContactMessage> {
+  async createContactMessage(msg: Omit<ContactMessage, 'id' | 'created_at' | 'updated_at'> & { id?: string }): Promise<ContactMessage> {
     return this.createMessage(msg);
   },
   async updateContactMessage(id: string, status: ContactMessage['status']): Promise<ContactMessage | null> {

@@ -87,7 +87,7 @@ export const BlogDetailPage: React.FC = () => {
             <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-2 border-t border-slate-800">
               <span className="flex items-center gap-1.5 text-slate-300 font-semibold">
                 <User className="w-4 h-4 text-amber-500" />
-                {post.author_name} ({post.author_role})
+                {post.author_name} {post.author_role ? `(${post.author_role})` : ''}
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-slate-500" />
@@ -175,7 +175,7 @@ export const BlogDetailPage: React.FC = () => {
             </div>
             <div>
               <p className="text-base font-bold text-white">{post.author_name}</p>
-              <p className="text-xs text-amber-400 font-medium mb-1">{post.author_role}</p>
+              <p className="text-xs text-amber-400 font-medium mb-1">{post.author_role || 'Senior Engineering Specialist'}</p>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Contributing Senior Specialist at ApexBuild Engineering & Construction Ltd.
               </p>

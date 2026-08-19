@@ -160,8 +160,10 @@ export interface BlogPost {
   cover_image_url: string;
   author_id?: string | null;
   author_name: string;
+  author_role?: string | null;
   category: string;
   read_time: string;
+  tags?: string[];
   published: boolean;
   published_at?: string | null;
   created_at: string;

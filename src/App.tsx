@@ -176,7 +176,7 @@ export default function App() {
   return (
     <ToastProvider>
       <AuthProvider>
-        <BrowserRouter basename="/ConstructIQ">
+        <BrowserRouter>
           <Routes>
             {/* Public Layout */}
             <Route element={<MainLayout />}>

@@ -208,12 +208,12 @@ export const AdminServicesPage: React.FC = () => {
                     <td className="px-6 py-4">
                       <span
                         className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                          s.is_active
+                          s.active
                             ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
                             : 'bg-slate-800 text-slate-400'
                         }`}
                       >
-                        {s.is_active ? 'Active' : 'Disabled'}
+                        {s.active ? 'Active' : 'Disabled'}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
