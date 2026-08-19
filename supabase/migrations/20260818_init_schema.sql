@@ -657,7 +657,7 @@ VALUES
     'civil-engineering-heavy-infrastructure',
     'Highways, arterial road dualing, stormwater drainage networks, bridge structures, and earthworks.',
     'Our heavy civil engineering division operates a dedicated in-house fleet of earthmoving and asphalt paving machinery across national highways and corridors.',
-    'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?w=1200&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?w=1200&auto=format&fit=crop&q=80',
     'HardHat',
     'Civil Works',
     ARRAY['Asphalt concrete & rigid concrete road paving', 'Box culverts & storm canals', 'Bridge abutments and post-tensioned flyovers', 'Bulk site grading and geotechnical stabilization', 'NCA 1 certified heavy plant & equipment fleet'],

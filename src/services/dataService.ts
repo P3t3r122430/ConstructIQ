@@ -128,27 +128,7 @@ export const dataService = {
     }
 
     const local = getLocalItem<Service[]>(STORAGE_KEYS.SERVICES, INITIAL_SERVICES);
-    // Ensure any legacy cached images are refreshed to working high-res photos
-    let hasChanges = false;
-    const cleaned = local.map(s => {
-      if (
-        s.slug === 'civil-engineering-heavy-infrastructure' ||
-        s.id === 'srv-002' ||
-        s.title.toLowerCase().includes('civil engineering')
-      ) {
-        if (!s.image_url || s.image_url.includes('1541888946425-d0fbb180c5f7') || s.image_url.includes('1590486803833-1c5dc8ddd4c8')) {
-          hasChanges = true;
-          return { ...s, image_url: 'https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=1200&auto=format&fit=crop&q=80' };
-        }
-      }
-      return s;
-    });
-
-    if (hasChanges) {
-      setLocalItem(STORAGE_KEYS.SERVICES, cleaned);
-    }
-
-    const sorted = [...cleaned].sort((a, b) => a.display_order - b.display_order);
+    const sorted = [...local].sort((a, b) => a.display_order - b.display_order);
     return activeOnly ? sorted.filter(s => s.active) : sorted;
   },
 
@@ -166,7 +146,7 @@ export const dataService = {
       slug,
       description: service.description || '',
       short_description: service.short_description || '',
-      image_url: service.image_url || 'https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=1200&auto=format&fit=crop&q=80',
+      image_url: service.image_url || 'https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?w=1200&auto=format&fit=crop&q=80',
       icon: service.icon || 'Building2',
       category: service.category || 'Construction',
       features: service.features || [],

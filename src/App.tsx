@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
-import { ScrollToTop } from './components/common/ScrollToTop';
 
 // Layouts
 import { MainLayout } from './components/layout/MainLayout';
@@ -178,7 +177,6 @@ export default function App() {
     <ToastProvider>
       <AuthProvider>
         <BrowserRouter>
-          <ScrollToTop />
           <Routes>
             {/* Public Layout */}
             <Route element={<MainLayout />}>

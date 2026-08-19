@@ -61,10 +61,9 @@ export const AboutPage: React.FC = () => {
       <section className="relative py-16 bg-[#0F1115] border-b border-white/10 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <img
-            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&auto=format&fit=crop&q=80"
-            alt="Engineering Infrastructure"
+            src="https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?w=1600&auto=format&fit=crop&q=80"
+            alt="Engineering Blueprint"
             className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
           />
         </div>
         <div className="relative max-w-7xl mx-auto px-6 sm:px-8 text-center max-w-3xl">

@@ -14,7 +14,7 @@ export const INITIAL_SITE_SETTINGS: SiteSettings = {
   id: 'settings-001',
   company_name: 'ApexBuild Engineering & Construction',
   tagline: 'Precision Civil Engineering & High-End Construction Across East Africa',
-  logo_url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&auto=format&fit=crop&q=80',
+  logo_url: 'https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?w=160&auto=format&fit=crop&q=80',
   phone: '+254 (0) 20 780 4000',
   phone_secondary: '+254 700 889 900',
   email: 'contracts@apexbuild.co.ke',
@@ -70,7 +70,7 @@ export const INITIAL_SERVICES: Service[] = [
     slug: 'civil-engineering-heavy-infrastructure',
     short_description: 'Highways, arterial road dualing, stormwater drainage networks, bridge structures, and earthworks.',
     description: 'Our heavy civil engineering division operates a dedicated in-house fleet of earthmoving, asphalt paving, and piling machinery. We construct national highways, industrial access corridors, bridge crossings, bulk earthworks, and municipal stormwater canals engineered for heavy axle loads and climate resilience.',
-    image_url: 'https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=1200&auto=format&fit=crop&q=80',
+    image_url: 'https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?w=1200&auto=format&fit=crop&q=80',
     icon: 'HardHat',
     category: 'Civil Works',
     features: [
